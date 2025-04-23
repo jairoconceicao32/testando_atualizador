@@ -1,0 +1,20 @@
+Correções:
+Agora os contatos são mostrados em um menu só, meus agradecimentos ao Wallan da Costa Martins pela contribuição na correção;
+
+Correções:
+*Corrigido duplicação do menu após cada iteração de algum item;
+
+Mudanças no menu:
+*Corrigido bug que quando celecionava uma opção, quando clicava na opção de sair, não deixava fechar o programa;
+*Agora usamos classe de menu do nvgt ao em véz de utilizar o dynamic;
+*Agora é possível navegar por letras nas opções do menu;
+
+Mudança no sistema de listar contatos:
+*Agora é aberto um campo para fazer a leitura do mesmo, ainda não está totalmente funcional;
+
+Adição de contatos:
+*Agora toda vez que um contato é adicionado, automaticamente os campos de nome e telefone são limpos;
+
+Corrigido bug que demorava a adicionar um contato na agenda;
+Adicionado uma quebra de linha quando lista contato, separando nome e telefone em linhas diferentes;
+Removida a mensagem canselado ao dar eskape nos campos da função de adicionar contatos;

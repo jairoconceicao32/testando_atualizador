@@ -1,0 +1,66 @@
+#include "form.nvgt"
+#include "speech.nvgt"
+string[] names;
+string[] fones;
+int tamanho;
+
+void addContacts() {
+	audio_form text;
+	text.create_window("Agenda telefônica");
+	wait(50);
+	int name = text.create_input_box("Dijite o nome do contato", "");
+	int foneNumber = text.create_input_box("Dijite o telefone do contato", "");
+	int addContat = text.create_button("Adicionar contato a agenda");
+	array<int> inputs = {name, foneNumber, addContat};
+	int indiceFoco = 0;
+	text.focus(inputs[indiceFoco]);
+	while(true)
+	{
+	if(key_pressed(KEY_ESCAPE)) break;
+		wait(5);
+		text.monitor();
+		if(text.is_pressed(addContat)) 
+		{
+			indiceFoco ++;
+			string nameStr = text.get_text(name);
+			string foneNumberStr = text.get_text(foneNumber);
+			if(foneNumberStr.length()<11)
+			{
+				wait(5);
+				speak("telefone inválido");
+				wait(10);
+				indiceFoco =2;
+				text.focus(inputs[indiceFoco]);
+			} else 
+			{
+				names.insert_last(nameStr);
+				fones.insert_last(foneNumberStr);
+				tamanho ++;
+				speak("Contato adicionado!");
+				text.set_text(name, "");
+				text.set_text(foneNumber, "");
+			}
+		}
+	}
+}
+void listContacts() 
+{
+    if(names.length()==0&&fones.length()==0) {
+        wait(500);
+        speak("A agenda está vazia!");
+        wait(1000);
+    }
+    else {
+        audio_form form;
+        form.create_window("Agenda telefônica", true);
+        int listContacts = form.create_list("Listando os contatos");
+        for(int i=0; i<tamanho; i++) {
+            form.add_list_item(listContacts, "nome: " + names[i] + "\n telefone: " + fones[i] + "\n");
+        }
+        while(true) {
+            wait(5);
+            if(key_pressed(KEY_ESCAPE)) break;
+            form.monitor();
+        }
+    }
+}

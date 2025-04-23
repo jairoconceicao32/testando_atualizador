@@ -1,0 +1,51 @@
+#include "menu.nvgt"
+#include "funcoes_agenda.nvgt"
+
+sound s;
+
+void principal()
+{
+	s.load("sons/open.ogg");
+	s.play_wait();
+	wait(500);
+	speak("Bem-vindo a agenda telefônica!");
+	wait(1000);
+	while(true)
+	{
+		menu m;
+		s.load("sons/music.ogg");
+		show_window("Agenda telefônica");
+		m.wrap =false;
+		m.focus_first_item = true; 
+		m.add_item("Cadastrar contatos", "cad");
+		m.add_item("Listar contatos cadastrados", "list");
+		m.add_item("Sair do programa", "exit");
+		s.play_looped();
+		int select= m.run();
+		if(select==-1) {
+			wait(600);
+			speak("Obrigado por utilizar nossa agenda telefônica!");
+			wait(1200);
+			s.load("sons/close.ogg");
+			s.play_wait();
+			break;
+		}
+		if(select>=0)
+		{
+			string selected_id = m.get_selected_item_id();
+			if(selected_id=="cad")
+			{
+				addContacts();
+			} else if(selected_id=="list") {
+				listContacts();
+			} else {
+				wait(600);
+				speak("Obrigado por utilizar nossa agenda telefônica!");
+				wait(1200);
+				s.load("sons/close.ogg");
+				s.play_wait();
+				exit();
+			}
+		}
+	}
+}
